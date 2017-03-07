@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+	<head>
+		<title>
+			VGC
+			{% block title_block %}
+				Video Game Characters
+			{% endblock %}
+		</title>
+	</head>
+	<body>
+		<div>
+			{% block body_block %}
+			{% endblock %}
+		</div>
+		<hr />
+		<div>
+			<ul>
+			{% if user.is_authenticated %}
+				Welcome {{ user.username }}!
+				<li><a href="{% url 'user_profile' %}">User Profile</a></li>
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+			{% else %}
+				<li><a href="{% url 'register' %}">Register</a></li>
+				<li><a href="{% url 'login' %}">Login</a></li>
+			{% endif %}
+			</ul>
+		</div>
+	</body>
+</html>

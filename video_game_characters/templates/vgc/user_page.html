@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'vgc/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	User Profile
+{% endblock %}
+
+{% block body_block %}
+    {% for field in form %}
+      {% if field.name == "website" and field.value %}
+        {{ field.label_tag }} {{ form.instance.website }}
+      {% elif field.name == "picture" and field.value  %}
+		<br/><img src="{{ form.instance.picture.url }}" width="124"  height="120"></img></br>
+      {% endif %}
+	{% endfor %}
+{% endblock %}
