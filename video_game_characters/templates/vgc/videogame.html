@@ -1,0 +1,27 @@
+{% extends 'vgc/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ videogame.name }}
+{% endblock %}
+
+{% block body_block %}
+	{%if videogame %} 
+		<h1>{{ videogame.name }}</h1>
+
+		{% if characters %}
+			<ul>
+			{% for character in characters %}	
+				<li><a href="{{ character.url }}">{{ character.title }} </a></li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<strong>No characters currently in videogame.</strong>
+		{% endif %}
+		{% if user.is_authenticated %}
+		<a href="{% url 'add_character' videogame.slug %}">Add a Character!</a> 
+		{% endif %}
+	{% else %}
+		The specified videogame does not exist!
+	{% endif %}
+{% endblock %}

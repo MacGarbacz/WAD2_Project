@@ -1,0 +1,19 @@
+<ul>
+	{% if games %}
+		{% for c in games %}
+			{% if c == act_games %}
+				<li>
+				<strong>
+					<a href="{% url 'show_videogame' c.slug %}">{{ c.name }}</a>
+				</strong>
+				</li>
+			{% else %}
+				<li>
+					<a href="{% url 'show_videogame' c.slug %}">{{ c.name }}</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+	{% else %}
+		<li> <strong>There are no videogames present.</strong></li> 
+	{% endif %}
+</ul>

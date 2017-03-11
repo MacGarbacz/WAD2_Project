@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from vgc.forms import UserForm, UserProfileForm
+from vgc.forms import UserForm, UserProfileForm, VideoGameForm, CharacterForm
 from django.core.urlresolvers import reverse
 from datetime import datetime
+from vgc.models import Character, VideoGame
 
 def index(request):
 
@@ -70,7 +71,7 @@ def register(request):
 
 def user_profile(request):
     form = UserProfileForm(instance = request.user.profile_user)
-    return render(request,'vgc/user_page.html',{'form': form})
+    return render(request,'vgc/user_profile.html',{'form': form})
 
 def user_login(request):
     # If the request is a HTTP POST, try to pull out the relevant information.
@@ -96,7 +97,7 @@ def user_login(request):
             # Is the account active? It could have been disabled.
             if user.is_active:
                 # If the account is valid and active, we can log the user in.
-                # We'll send the user back to the homepage.
+                # We'll send the user back to the homecharacter.
                 login(request, user)
                 return HttpResponseRedirect(reverse('index'))
             else:
@@ -119,5 +120,60 @@ def user_login(request):
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
-    # Take the user back to the homepage.
+    # Take the user back to the homecharacter.
     return HttpResponseRedirect(reverse('index'))
+
+
+def show_videogame(request, videogame_name_slug):
+    context_dict = {}
+
+    try:
+        videogame = VideoGame.objects.get(slug=videogame_name_slug)
+
+        characters = Character.objects.filter(videogame=videogame)
+
+        context_dict['characters'] = characters
+
+        context_dict['videogame'] = videogame
+    except VideoGame.DoesNotExist:
+        context_dict['videogame'] = None
+        context_dict['characters'] = None
+
+    return render(request, 'vgc/videogame.html', context_dict)
+
+@login_required
+def add_videogame(request):
+    form = VideoGameForm()
+
+    if request.method == 'POST':
+        form = VideoGameForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+
+            return index(request)
+        else:
+            print(form.errors)
+    return render(request, 'vgc/add_videogame.html', {'form': form})
+
+@login_required
+def add_character(request, videogame_name_slug):
+    try:
+        videogame = VideoGame.objects.get(slug=videogame_name_slug)
+    except VideoGame.DoesNotExist:
+        videogame = None
+
+    form = CharacterForm()
+    if request.method == 'POST':
+        form = CharacterForm(request.POST)
+        if form.is_valid():
+            if videogame:
+                character = form.save(commit=False)
+                character.videogame = videogame
+                character.views = 0
+                character.save()
+                return show_videogame(request, videogame_name_slug)
+        else:
+            print(form.errors)
+    context_dict = {'form':form, 'videogame': videogame}
+    return render(request, 'vgc/add_character.html', context_dict)
