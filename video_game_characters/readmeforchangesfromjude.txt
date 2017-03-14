@@ -1,3 +1,10 @@
+Time : 14/03/2017 -00:28
+ -Did some template cleaning up 
+ -Added character pages
+ -We can now view the video games pages and all the related pages like add character etc
+ -made a population_vgc.py similar to rango apps one
+ -modified character model and form a bit
+
 
 Time : 07/03/2017 -00:05
  -Implemented some basic login and logout feature
