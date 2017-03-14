@@ -12,7 +12,7 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('website', 'picture')
+        fields = ('picture',)
 
 
 class VideoGameForm(forms.ModelForm):
@@ -25,15 +25,21 @@ class VideoGameForm(forms.ModelForm):
         fields = ('name',)
 
 class CharacterForm(forms.ModelForm):
+
+    """Moved this into model, using fields instead
     name = forms.CharField(max_length=128,
                             help_text='Please enter the name of the character.')
     url = forms.URLField(max_length=200,
                          help_text='Please enter the URL of the character.')
     bio = forms.CharField(max_length=512,
                             help_text='Please enter the bio of the character.')
+    """
+
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Character
+        fields = ('name','url','bio')
         exclude = ('videogame', )
 
     def clean(self):

@@ -12,7 +12,7 @@
 		{% if characters %}
 			<ul>
 			{% for character in characters %}	
-				<li><a href="{{ character.url }}">{{ character.title }} </a></li>
+				<li><a href="{% url 'show_character' character.slug %}" >{{character.name}} </a></li>
 			{% endfor %}
 			</ul>
 		{% else %}

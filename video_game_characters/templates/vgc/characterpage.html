@@ -1,0 +1,21 @@
+{% extends 'vgc/base.html' %}
+{% load staticfiles %}
+
+
+{% block title_block %}
+	{{ character.name }}
+{% endblock %}
+
+{% block body_block %}
+ </h1>{{ character.name }}</h1>
+ <br>
+ {% if character.bio %}
+	Bio :    {{character.bio}}
+ {% endif%}
+ 
+  <br>
+ {% if character.url %}
+	More Details : <a href="{{character.url}}" > {{character.url}}  </a>
+ {% endif%}
+ 
+{% endblock %}

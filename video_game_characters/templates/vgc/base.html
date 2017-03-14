@@ -1,5 +1,5 @@
-{% load vgc_template_tags %}
 <!DOCTYPE html>
+{% load vgc_template_tags %}
 {% load staticfiles %}
 
 <html>
@@ -19,9 +19,12 @@
 		<hr />
 		<div>
 			<ul>
+			<li><a href="{% url 'show_list_of_games' %}">Video Games</a></li>
+			<li><a href="{% url 'index' %}">Homepage</a></li>
 			{% if user.is_authenticated %}
 				Welcome {{ user.username }}!
 				<li><a href="{% url 'user_profile' %}">User Profile</a></li>
+				<li><a href="{% url 'add_videogame' %}">Add a videogame</a></li>
 				<li><a href="{% url 'logout' %}">Logout</a></li>
 			{% else %}
 				<li><a href="{% url 'register' %}">Register</a></li>

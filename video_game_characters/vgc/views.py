@@ -124,6 +124,10 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
+def show_listofvideogame(request):
+    return render(request, 'vgc/gameslist.html')
+
+
 def show_videogame(request, videogame_name_slug):
     context_dict = {}
 
@@ -140,6 +144,23 @@ def show_videogame(request, videogame_name_slug):
         context_dict['characters'] = None
 
     return render(request, 'vgc/videogame.html', context_dict)
+
+
+def show_character(request, character_name_slug):
+    context_dict = {}
+
+    try:
+        character = Character.objects.get(slug=character_name_slug)
+
+        context_dict['character'] = character
+
+    except VideoGame.DoesNotExist:
+        context_dict['character'] = None
+
+    return render(request, 'vgc/characterpage.html', context_dict)
+
+
+
 
 @login_required
 def add_videogame(request):
