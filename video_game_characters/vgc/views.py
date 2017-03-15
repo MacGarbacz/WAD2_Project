@@ -127,6 +127,9 @@ def user_logout(request):
 def show_listofvideogame(request):
     return render(request, 'vgc/gameslist.html')
 
+def allcharacters(request):
+    return render(request, 'vgc/allcharacters.html')
+
 
 def show_videogame(request, videogame_name_slug):
     context_dict = {}
@@ -160,6 +163,9 @@ def show_character(request, character_name_slug):
     return render(request, 'vgc/characterpage.html', context_dict)
 
 
+
+def google_search_verification(request):
+    return render(request, 'vgc/googlee7d575755dc66c86.html')
 
 
 @login_required

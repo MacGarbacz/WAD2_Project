@@ -1,0 +1,11 @@
+<ul>
+	{% if characters %}
+		{% for c in characters %}
+            <li>
+                <a href="{% url 'show_character' c.slug %}">{{ c.name }}</a>
+            </li>
+		{% endfor %}
+	{% else %}
+		<li> <strong>There are no characters present.</strong></li>
+	{% endif %}
+</ul>

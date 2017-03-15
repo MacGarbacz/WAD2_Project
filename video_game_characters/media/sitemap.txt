@@ -1,0 +1,12 @@
+http://2193429m.pythonanywhere.com/vgc/characterpage/james-vega/
+http://2193429m.pythonanywhere.com/vgc/characterpage/jude/
+http://2193429m.pythonanywhere.com/vgc/characterpage/official-python-tutorial/
+http://2193429m.pythonanywhere.com/vgc/characterpage/1/
+http://2193429m.pythonanywhere.com/vgc/showlistofgamesv/
+http://2193429m.pythonanywhere.com/vgc/register/
+http://2193429m.pythonanywhere.com/vgc/videogame/dragonage/
+http://2193429m.pythonanywhere.com/vgc/videogame/game1/
+http://2193429m.pythonanywhere.com/vgc/login/
+http://2193429m.pythonanywhere.com/vgc/videogame/mass-effect/
+http://2193429m.pythonanywhere.com/
+http://2193429m.pythonanywhere.com/vgc/

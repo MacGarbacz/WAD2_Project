@@ -1,0 +1,15 @@
+{% extends 'vgc/base.html' %}
+{% load staticfiles %}
+{% load vgc_template_tags %}
+
+{% block title_block %}
+	Browse All Characters
+{% endblock %}
+
+{% block body_block %}
+	<div>
+		{% block sidebar_block %}
+			{% get_character_list %}
+		{% endblock %}
+	</div>
+{% endblock %}

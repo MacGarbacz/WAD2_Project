@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
     url(r'^vgc/', include('vgc.urls')),
+                  url(r'^googlee7d575755dc66c86', views.google_search_verification, name='googlee7d575755dc66c86'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
