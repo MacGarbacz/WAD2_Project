@@ -185,6 +185,22 @@ def your_top_10(request, user):
 
 
 @login_required
+def your_top_10(request, user):
+    context_dict = {}
+
+    try:
+        list = ListElement.objects.filter(user=user)
+
+        context_dict['list'] = list
+
+    except ListElement.DoesNotExist:
+        context_dict['list'] = None
+
+    return render(request, 'vgc/your_top_10.html', context_dict)
+
+
+
+@login_required
 def add_videogame(request):
     form = VideoGameForm()
 
