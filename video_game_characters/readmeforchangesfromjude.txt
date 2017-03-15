@@ -1,3 +1,9 @@
+Time : 1/03/2017 -19:49
+ -Did some template stuff 
+ -Made  User's top ten list url
+ -Added no profile pic picture for user's who didn't upload a profile pic
+
+
 Time : 14/03/2017 -00:28
  -Did some template cleaning up 
  -Added character pages

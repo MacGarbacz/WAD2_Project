@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from vgc.forms import UserForm, UserProfileForm, VideoGameForm, CharacterForm
 from django.core.urlresolvers import reverse
 from datetime import datetime
-from vgc.models import Character, VideoGame
+from vgc.models import Character, VideoGame , Rating ,ListElement
 
 def index(request):
 
@@ -157,7 +157,7 @@ def show_character(request, character_name_slug):
 
         context_dict['character'] = character
 
-    except VideoGame.DoesNotExist:
+    except Character.DoesNotExist:
         context_dict['character'] = None
 
     return render(request, 'vgc/characterpage.html', context_dict)
@@ -166,6 +166,22 @@ def show_character(request, character_name_slug):
 
 def google_search_verification(request):
     return render(request, 'vgc/googlee7d575755dc66c86.html')
+
+
+@login_required
+def your_top_10(request, user):
+    context_dict = {}
+
+    try:
+        list = ListElement.objects.filter(user=user)
+
+        context_dict['list'] = list
+
+    except ListElement.DoesNotExist:
+        context_dict['list'] = None
+
+    return render(request, 'vgc/your_top_10.html', context_dict)
+
 
 
 @login_required
@@ -182,6 +198,8 @@ def add_videogame(request):
         else:
             print(form.errors)
     return render(request, 'vgc/add_videogame.html', {'form': form})
+
+
 
 @login_required
 def add_character(request, videogame_name_slug):

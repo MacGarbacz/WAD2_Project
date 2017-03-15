@@ -1,0 +1,62 @@
+{% extends 'vgc/base.html' %}
+{% load staticfiles %}
+
+#This might be all wrong
+{% block title_block %}
+	{{ user.username }} 's Top 10
+{% endblock %}
+
+{% block body_block %}
+ </h1>{{ l.user }}</h1>
+	{% for l in list %}	
+		{% if l.position == 1 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+	{% for l in list %}	
+		{% if l.position == 2 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+		{% for l in list %}	
+		{% if l.position == 3 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+	{% for l in list %}	
+		{% if l.position == 4 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+	{% for l in list %}	
+		{% if l.position == 5 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+	{% for l in list %}	
+		{% if l.position == 6 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+	{% for l in list %}	
+		{% if l.position == 7 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+	{% for l in list %}	
+		{% if l.position == 8 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+	{% for l in list %}	
+		{% if l.position == 9 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+	{% for l in list %}	
+		{% if l.position == 10 %}
+			l.character
+		{% endif%}
+	{% endfor %}
+  
+{% endblock %}

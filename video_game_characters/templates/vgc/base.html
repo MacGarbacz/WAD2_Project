@@ -25,6 +25,7 @@
 			{% if user.is_authenticated %}
 				Welcome {{ user.username }}!
 				<li><a href="{% url 'user_profile' %}">User Profile</a></li>
+				<li><a href="{% url 'your_top_10' user %}">Your Top 10</a></li>
 				<li><a href="{% url 'add_videogame' %}">Add a videogame</a></li>
 				<li><a href="{% url 'logout' %}">Logout</a></li>
 			{% else %}

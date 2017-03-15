@@ -13,6 +13,8 @@
     {% for field in form %}
       {% if field.name == "picture" and field.value  %}
 		<br/><img src="{{ form.instance.picture.url }}" width="124"  height="120"></img></br>
+	  {% elif field.name == "picture" %}
+	    <br/><img src="{{MEDIA_URL}}NoProfilePicture.png" width="124"  height="120"></img></br>
       {% endif %}
 	{% endfor %}
 {% endblock %}
