@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from vgc.models import UserProfile, VideoGame, Character
+from vgc.models import UserProfile, VideoGame, Character, Rating
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -23,6 +23,13 @@ class VideoGameForm(forms.ModelForm):
     class Meta:
         model = VideoGame
         fields = ('name',)
+		
+class RatingForm(forms.ModelForm):
+    rating = forms.IntegerField(min_value=0, max_value=100)
+    class Meta:
+        model = Rating
+        fields = ('user', 'character', 'rating',)
+        exclude = ('user', 'character')
 
 class CharacterForm(forms.ModelForm):
 

@@ -1,0 +1,29 @@
+{% extends 'vgc/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	'Rate'
+{% endblock %}
+
+{% block body_block %}
+			{% if character %}
+			
+	        <h1>Rate {{character.name}}</h1>
+	        <form id="rating_form" method="post" action="/vgc/rate/{{ character.slug }}/">
+	            {% csrf_token %}
+	            {% for hidden in form.hidden_fields %}
+	                {{ hidden }}
+	            {% endfor %}
+	            {% for field in form.visible_fields %}
+	                {{ field.errors }}
+	                {{ field.help_text }}
+	                {{ field }}
+	            {% endfor %}
+	            <input type="submit" name="submit" value="Rate" />
+	        </form>
+			
+			{% else %}
+				The specified character does not exist!
+			{% endif%}
+
+{% endblock %}

@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^user_profile/$',views.user_profile,name='user_profile'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^characterpage/(?P<character_name_slug>[\w\-]+)/$', views.show_character, name='show_character'),
+    url(r'^rate/(?P<character_slug>[\w\-]+)/$', views.rate, name='rate'),
     url(r'^(?P<user>[\w\-]+)/yourtop10/$',views.your_top_10, name='your_top_10'),
     url(r'^videogame/(?P<videogame_name_slug>[\w\-]+)/$',views.show_videogame, name='show_videogame'),
     url(r'^add_videogame/$', views.add_videogame, name='add_videogame'),

@@ -2,10 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from vgc.forms import UserForm, UserProfileForm, VideoGameForm, CharacterForm
+from vgc.forms import UserForm, UserProfileForm, VideoGameForm, CharacterForm, RatingForm
 from django.core.urlresolvers import reverse
 from datetime import datetime
-from vgc.models import Character, VideoGame , Rating ,ListElement
+from vgc.models import Character, VideoGame , Rating, ListElement
 
 def index(request):
 
@@ -156,9 +156,14 @@ def show_character(request, character_name_slug):
         character = Character.objects.get(slug=character_name_slug)
 
         context_dict['character'] = character
-
+        ratings = Rating.objects.all().filter(character = character)
+        rate = 0.0
+        for r in ratings:
+            rate = rate + r.rating/len(ratings)
+        context_dict['rating'] = rate
     except Character.DoesNotExist:
         context_dict['character'] = None
+        context_dict['rating'] = 0
 
     return render(request, 'vgc/characterpage.html', context_dict)
 
@@ -238,3 +243,31 @@ def add_character(request, videogame_name_slug):
             print(form.errors)
     context_dict = {'form':form, 'videogame': videogame}
     return render(request, 'vgc/add_character.html', context_dict)
+    
+@login_required
+def rate(request, character_slug):
+    try:
+        characterObj = Character.objects.get(slug=character_slug)
+    except Character.DoesNotExist:
+        characterObj = None
+
+    form = RatingForm()
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            if characterObj:
+                try:
+                    rating = Rating.objects.get(user = request.user.profile_user, character = characterObj)
+                    rating.rating = request.POST.get('rating')
+                except Rating.DoesNotExist:
+                    rating = form.save(commit=False)
+                    rating.character = characterObj
+                    rating.rating = request.POST.get('rating')
+                    #assume this exists as login required?
+                    rating.user = request.user.profile_user
+                rating.save()
+                return show_character(request, character_slug)
+        else:
+            print(form.errors)
+    context_dict = {'form':form, 'character': characterObj}
+    return render(request, 'vgc/rate.html', context_dict)
