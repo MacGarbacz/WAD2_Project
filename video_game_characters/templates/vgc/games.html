@@ -1,19 +1,23 @@
-<ul>
-	{% if games %}
+<div class="jumbotron">
+      <div class="container">
+        <h1>Choose a VideoGame!</h1>
+      </div>
+    </div>
+
+<!-- Three columns of text below the carousel -->
+<div class="container">
+<div class="row">
+{% if games %}
 		{% for c in games %}
-			{% if c == act_games %}
-				<li>
-				<strong>
-					<a href="{% url 'show_videogame' c.slug %}">{{ c.name }}</a>
-				</strong>
-				</li>
-			{% else %}
-				<li>
-					<a href="{% url 'show_videogame' c.slug %}">{{ c.name }}</a>
-				</li>
-			{% endif %}
-		{% endfor %}
-	{% else %}
-		<li> <strong>There are no videogames present.</strong></li> 
-	{% endif %}
-</ul>
+
+        <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3">
+          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+          <h2>{{ c.name }}</h2>
+          <p><a class="btn btn-default" href="{% url 'show_videogame' c.slug %}" role="button">View characters &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+       {% endfor %}
+       </div>
+       {% else %}
+		<li> <strong>There are no games present.</strong></li>
+		{% endif %}
+</div>

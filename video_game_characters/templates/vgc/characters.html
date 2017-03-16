@@ -1,11 +1,24 @@
-<ul>
-	{% if characters %}
+<div class="jumbotron">
+      <div class="container">
+        <h1>Choose a character!</h1>
+      </div>
+    </div>
+
+<!-- Three columns of text below the carousel -->
+<div class="container">
+<div class="row">
+{% if characters %}
 		{% for c in characters %}
-            <li>
-                <a href="{% url 'show_character' c.slug %}">{{ c.name }}</a>
-            </li>
-		{% endfor %}
-	{% else %}
+
+        <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3">
+          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+          <h2>{{ c.name }}</h2>
+          <p><a class="btn btn-default" href="{% url 'show_character' c.slug %}" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+       {% endfor %}
+       </div>
+       {% else %}
 		<li> <strong>There are no characters present.</strong></li>
-	{% endif %}
-</ul>
+		{% endif %}
+
+</div>
