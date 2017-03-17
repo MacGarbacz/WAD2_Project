@@ -130,6 +130,9 @@ def show_listofvideogame(request):
 def allcharacters(request):
     return render(request, 'vgc/allcharacters.html')
 
+def toprated(request):
+    return render(request, 'vgc/toprated.html')
+
 
 def show_videogame(request, videogame_name_slug):
     context_dict = {}

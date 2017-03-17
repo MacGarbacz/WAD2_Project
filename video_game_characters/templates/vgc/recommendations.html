@@ -1,0 +1,15 @@
+{% extends 'vgc/base.html' %}
+{% load staticfiles %}
+{% load vgc_template_tags %}
+
+{% block title_block %}
+	Recommendations
+{% endblock %}
+
+{% block body_block %}
+	<div>
+		{% block sidebar_block %}
+			{% get_recommendation_list %}
+		{% endblock %}
+	</div>
+{% endblock %}
