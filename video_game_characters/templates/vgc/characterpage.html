@@ -7,20 +7,28 @@
 {% endblock %}
 
 {% block body_block %}
- </h1>{{ character.name }}</h1>
- <br>
- {% if character.bio %}
-	Bio :    {{character.bio}}
- {% endif%}
- 
- <br>
- {% if rating %}
-	Rating :    {{rating}}
- {% endif%}
- 
- <br>
- {% if character.url %}
-	More Details : <a href="{{character.url}}" > {{character.url}}  </a>
- {% endif%}
- 
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3">
+	<br>
+		{% if character.picture %}
+			<br/><img src="{{ character.picture.url }}" width="124"  height="120"></img></br>
+		{% else %}
+			<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+		{% endif %}
+	<br>
+	</h1>{{ character.name }}</h1>
+	 <br>
+	 {% if character.bio %}
+		Bio :    {{character.bio}}
+	 {% endif%}
+	 
+	 <br>
+	 {% if rating %}
+		Rating :    {{rating}}
+	 {% endif%}
+	 
+	 <br>
+	 {% if character.url %}
+		More Details : <a href="{{character.url}}" > {{character.url}}  </a>
+	 {% endif%}
+</div><!-- /.col-lg-4 -->
 {% endblock %}

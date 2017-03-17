@@ -8,7 +8,7 @@
 {% block body_block %}
 		<h1>Add VideoGame</h1>
 		<div>
-			<form id="videogame_form" method="post" action="/vgc/add_videogame/">
+			<form id="videogame_form" method="post" action="/vgc/add_videogame/" enctype="multipart/form-data">
 				{% csrf_token %}
 				{% for hidden in form.hidden_fields %}
 					{{ hidden }}
@@ -17,6 +17,7 @@
 					{{ field.errors }}
 					{{ field.help_text }}
 					{{ field }}
+					<br>
 				{% endfor %}
 				<input type="submit" name="submit" value="Create VideoGame" />
 			</form>

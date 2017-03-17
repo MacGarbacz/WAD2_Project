@@ -1,3 +1,8 @@
+Time : 1/03/2017 - 02:25
+ -Did all the stuff to allow users to add game picture and character picture
+ -Refactor some of the template to have the game picture or character picture if there is one
+
+
 Time : 1/03/2017 -19:49
  -Did some template stuff 
  -Made  User's top ten list url

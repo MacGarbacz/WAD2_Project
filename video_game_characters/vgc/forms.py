@@ -16,13 +16,13 @@ class UserProfileForm(forms.ModelForm):
 
 
 class VideoGameForm(forms.ModelForm):
-    name = forms.CharField(max_length=128,
-                           help_text='Please enter the videogame title.')
+    #name = forms.CharField(max_length=128,
+           #                help_text='Please enter the videogame title.')
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = VideoGame
-        fields = ('name',)
+        fields = ('name','picture')
 		
 class RatingForm(forms.ModelForm):
     rating = forms.IntegerField(min_value=0, max_value=100)
@@ -46,7 +46,7 @@ class CharacterForm(forms.ModelForm):
 
     class Meta:
         model = Character
-        fields = ('name','url','bio')
+        fields = ('name','url','bio','picture')
         exclude = ('videogame', )
 
     def clean(self):

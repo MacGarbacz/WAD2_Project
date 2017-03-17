@@ -10,6 +10,7 @@
 		<h1>{{ videogame.name }}</h1>
 
 		{% if characters %}
+			All characters in {{ videogame.name }} :
 			<ul>
 			{% for character in characters %}	
 				<li><a href="{% url 'show_character' character.slug %}" >{{character.name}} </a></li>

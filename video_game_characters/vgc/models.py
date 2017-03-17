@@ -20,8 +20,9 @@ class UserProfile(models.Model):
         return self.user.username
 
 class VideoGame(models.Model):
-    name = models.CharField(max_length=128, unique =True)
+    name = models.CharField(max_length=128, help_text='Please Enter the videogame title' ,unique =True)
     slug = models.SlugField()
+    picture = models.ImageField(upload_to='game_images', help_text='Add Video Game Picture', blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -46,7 +47,8 @@ class Character(models.Model):
                          help_text='Please enter the URL of the character.')
     bio = models.CharField(max_length=512,
                             help_text='Please enter the bio of the character.')
-                            
+
+    picture = models.ImageField(upload_to='char_images', help_text='Add Character Picture', blank=True)
     ratings = models.ManyToManyField(UserProfile, through='Rating', through_fields=('character', 'user'))
 
     def save(self, *args, **kwargs):

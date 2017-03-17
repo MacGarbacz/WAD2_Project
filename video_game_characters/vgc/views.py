@@ -173,28 +173,13 @@ def google_search_verification(request):
     return render(request, 'vgc/googlee7d575755dc66c86.html')
 
 
-@login_required
-def your_top_10(request, user):
-    context_dict = {}
-
-    try:
-        list = ListElement.objects.filter(user=user)
-
-        context_dict['list'] = list
-
-    except ListElement.DoesNotExist:
-        context_dict['list'] = None
-
-    return render(request, 'vgc/your_top_10.html', context_dict)
-
-
 
 @login_required
 def your_top_10(request, user):
     context_dict = {}
 
     try:
-        list = ListElement.objects.filter(user=user)
+        list = ListElement.objects.all().filter(user=user)
 
         context_dict['list'] = list
 
@@ -213,7 +198,10 @@ def add_videogame(request):
         form = VideoGameForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=True)
+            game = form.save(commit=False)
+            if 'picture' in request.FILES:
+                game.picture = request.FILES['picture']
+            game.save()
 
             return index(request)
         else:
@@ -236,7 +224,8 @@ def add_character(request, videogame_name_slug):
             if videogame:
                 character = form.save(commit=False)
                 character.videogame = videogame
-                character.views = 0
+                if 'picture' in request.FILES:
+                    character.picture = request.FILES['picture']
                 character.save()
                 return show_videogame(request, videogame_name_slug)
         else:
