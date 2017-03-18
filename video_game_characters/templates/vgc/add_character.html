@@ -6,25 +6,45 @@
 {% endblock %}
 
 {% block body_block %}
-			{% if videogame %}
-			
-	        <h1>Add a Character to {{videogame.name}}</h1>
-	        <form id="character_form" method="post" action="/vgc/videogame/{{ videogame.slug }}/add_character/" enctype="multipart/form-data">
-	            {% csrf_token %}
-	            {% for hidden in form.hidden_fields %}
-	                {{ hidden }}
-	            {% endfor %}
-	            {% for field in form.visible_fields %}
-	                {{ field.errors }}
-	                {{ field.help_text }}
-	                {{ field }}
-					 <br>
-	            {% endfor %}
-	            <input type="submit" name="submit" value="Add Character" />
-	        </form>
-			
-			{% else %}
-				The specified videogame does not exist!
-			{% endif%}
+<div class="hero-unit">
+        {% if videogame %}
+     <div class="jumbotron">
+     <div class="container">
+        <h1>Add a Character to {{videogame.name}}</h1>
+        </div>
+    </div>
+    <div class="container">
+	<h2 class="form-signin-heading">Characters details</h2>
 
+	<form id="character_form" method="post" action="/vgc/videogame/{{ videogame.slug }}/add_character/" enctype="multipart/form-data">
+    	{% csrf_token %}
+    <div class="form-group" >
+    <p class="required"><label class="required" for="id_name">Name:</label>
+         <input class="form-control" id="id_name" maxlength="128" name="name" type="text" />
+    </p>
+        <p class="required"><label class="required" for="id_url">URL:</label>
+            <input class="form-control" id="id_url" maxlength="200" name="url" type="url" />
+        </p>
+    <p class="required"><label class="required" for="id_password1">Bio:</label>
+        <input class="form-control" id="id_bio" maxlength="512" name="bio" type="text" />
+    </p>
+    <p> <label class="btn btn-primary" for="id_picture">
+    	<input id="id_picture" name="picture" type="file" style="display:none;">
+    	Picture
+		</label>
+		<span class="helptext">Pick the character's picture</span>
+	</p>
+</div>
+    <button type="submit" class="btn btn-default" value="Add Character">Add Character</button>
+</form>
+</div> 
+{% else %}
+<div class="jumbotron">
+        <div class="container">
+        <h1>The specified video game does not exist!</h1>
+        </div>
+    </div>
+{% endif %}
+</div>
+</div>
 {% endblock %}
