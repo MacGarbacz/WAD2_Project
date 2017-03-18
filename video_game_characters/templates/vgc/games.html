@@ -17,7 +17,11 @@
           <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
         {% endif %}  
 		  <h2>{{ c.name }}</h2>
-          <p><a class="btn btn-default" href="{% url 'show_videogame' c.slug %}" role="button">View characters &raquo;</a></p>
+          </br>
+          <p>
+          <input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_videogame' c.slug %}';" value="View details" /></p>
+          </br>
+          </p>
         </div><!-- /.col-lg-4 -->
        {% endfor %}
        </div>
