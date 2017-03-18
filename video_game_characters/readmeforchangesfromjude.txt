@@ -1,9 +1,14 @@
-Time : 1/03/2017 - 02:25
+Time : 18/03/2017 - 04:25
+ -Top 10 Should be working good now
+ -Nobody reads this Q.Q
+
+
+Time : 17/03/2017 - 02:25
  -Did all the stuff to allow users to add game picture and character picture
  -Refactor some of the template to have the game picture or character picture if there is one
 
 
-Time : 1/03/2017 -19:49
+Time : 15/03/2017 -19:49
  -Did some template stuff 
  -Made  User's top ten list url
  -Added no profile pic picture for user's who didn't upload a profile pic

@@ -80,7 +80,7 @@ class Rating(models.Model):
 
 class ListElement(models.Model):
     user = models.ForeignKey(UserProfile)
-    character = models.ForeignKey(Character)
+    character = models.ForeignKey(Character ,blank = True)
     position = models.IntegerField(choices=[(i,i) for i in range(11)])
     class Meta:
         #same list position cannot appear twice in a list, same character cannot appear twice in a list

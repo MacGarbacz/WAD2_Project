@@ -2,10 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from vgc.forms import UserForm, UserProfileForm, VideoGameForm, CharacterForm, RatingForm
+from vgc.forms import UserForm, UserProfileForm, VideoGameForm, CharacterForm, RatingForm , ListElementForm
 from django.core.urlresolvers import reverse
 from datetime import datetime
-from vgc.models import Character, VideoGame , Rating, ListElement
+from vgc.models import UserProfile , Character, VideoGame , Rating, ListElement
 
 def index(request):
 
@@ -178,18 +178,171 @@ def google_search_verification(request):
 
 
 @login_required
-def your_top_10(request, user):
+def your_top_10(request,user):
+
+    def updatelist(userprofile,position,character):
+        ListElement.objects.filter(user=userprofile, character=character).delete()
+        ListElement.objects.filter(user=userprofile, position=position).delete()
+        pos1 = ListElement.objects.create(user=userprofile, position=position, character=character)
+        pos1.save()
+        return
+
+
     context_dict = {}
+    form1 = ListElementForm()
+    form2 = ListElementForm()
+    form3 = ListElementForm()
+    form4 = ListElementForm()
+    form5 = ListElementForm()
+    form6 = ListElementForm()
+    form7 = ListElementForm()
+    form8 = ListElementForm()
+    form9 = ListElementForm()
+    form10 = ListElementForm()
+
+    userprofile = UserProfile.objects.get(user=request.user.id)
+    if request.method == 'POST':
+        print(request.POST)
+        post = request.POST
+        if post["character"] != "":
+            character = Character.objects.get(id=post["character"])
+
+            if "submit_1" in request.POST:
+                form1 = ListElementForm(request.POST)
+                if form1.is_valid():
+                    position = 1
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form1.errors)
+
+
+            elif "submit_2" in request.POST:
+                form2 = ListElementForm(request.POST)
+                if form2.is_valid():
+                    position = 2
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form2.errors)
+
+            elif "submit_3" in request.POST:
+                form3 = ListElementForm(request.POST)
+                if form3.is_valid():
+                    position = 3
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form4.errors)
+
+            elif "submit_4" in request.POST:
+                form4 = ListElementForm(request.POST)
+                if form4.is_valid():
+                    position = 4
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form4.errors)
+
+            elif "submit_5" in request.POST:
+                form5 = ListElementForm(request.POST)
+                if form5.is_valid():
+                    position = 5
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form5.errors)
+
+            elif "submit_6" in request.POST:
+                form6 = ListElementForm(request.POST)
+                if form6.is_valid():
+                    position = 6
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form6.errors)
+
+            elif "submit_7" in request.POST:
+                form7 = ListElementForm(request.POST)
+                if form7.is_valid():
+                    position = 7
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form7.errors)
+
+            elif "submit_8" in request.POST:
+                form8 = ListElementForm(request.POST)
+                if form8.is_valid():
+                    position = 8
+
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form8.errors)
+
+            elif "submit_9" in request.POST:
+                form9 = ListElementForm(request.POST)
+                if form9.is_valid():
+                    position = 9
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form9.errors)
+
+            elif "submit_10" in request.POST:
+                form10 = ListElementForm(request.POST)
+                if form10.is_valid():
+                    position = 10
+                    updatelist(userprofile, position, character)
+                else:
+                    print(form10.errors)
+
 
     try:
-        list = ListElement.objects.all().filter(user=user)
+        list = ListElement.objects.all().filter(user=userprofile).order_by("position")
+
+        context_dict['pos1'] = False
+        context_dict['pos2'] = False
+        context_dict['pos3'] = False
+        context_dict['pos4'] = False
+        context_dict['pos5'] = False
+        context_dict['pos6'] = False
+        context_dict['pos7'] = False
+        context_dict['pos8'] = False
+        context_dict['pos9'] = False
+        context_dict['pos10'] = False
+
+
+        if ListElement.objects.filter(user=userprofile ,position =1).exists():
+            context_dict['pos1'] = True
+        if ListElement.objects.filter(user=userprofile ,position =2).exists():
+            context_dict['pos2'] = True
+        if ListElement.objects.filter(user=userprofile ,position =3).exists():
+            context_dict['pos3'] = True
+        if ListElement.objects.filter(user=userprofile ,position =4).exists():
+            context_dict['pos4'] = True
+        if ListElement.objects.filter(user=userprofile ,position =5).exists():
+            context_dict['pos5'] = True
+        if ListElement.objects.filter(user=userprofile ,position =6).exists():
+            context_dict['pos6'] = True
+        if ListElement.objects.filter(user=userprofile ,position =7).exists():
+            context_dict['pos7'] = True
+        if ListElement.objects.filter(user=userprofile ,position =8).exists():
+            context_dict['pos8'] = True
+        if ListElement.objects.filter(user=userprofile ,position =9).exists():
+            context_dict['pos9'] = True
+        if ListElement.objects.filter(user=userprofile ,position =10).exists():
+            context_dict['pos10'] = True
 
         context_dict['list'] = list
 
     except ListElement.DoesNotExist:
         context_dict['list'] = None
 
-    return render(request, 'vgc/your_top_10.html', context_dict)
+    context_dict['form1'] = form1
+    context_dict['form2'] = form2
+    context_dict['form3'] = form3
+    context_dict['form4'] = form4
+    context_dict['form5'] = form5
+    context_dict['form6'] = form6
+    context_dict['form7'] = form7
+    context_dict['form8'] = form8
+    context_dict['form9'] = form9
+    context_dict['form10'] = form10
+
+    return render(request, 'vgc/your_top_10.html', context_dict )
 
 
 
