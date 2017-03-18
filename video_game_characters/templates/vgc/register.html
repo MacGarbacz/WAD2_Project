@@ -1,29 +1,45 @@
-<!DOCTYPE html>
-{% extends 'vgc/base.html' %}
-{% load staticfiles %}
-
-{% block title_block %}
-	Register
-{% endblock %}
-
+{% extends "vgc/base.html" %}
 {% block body_block %}
-	<h1>About Page</h1>
-	{% if registered %}
-		VGC says: <strong>thank you for registering!</strong>
-		<a href="{% url 'index' %}">Return to the homepage.</a><br />
-	{% else %}
-		Rango says: <strong>register here!</strong><br />
-		<form id="user_form" method="post" action="{% url 'register' %}"
-			enctype="multipart/form-data">
 
-		{% csrf_token %}
+<div class="hero-unit">
+        {% if registered %}
+        <div class="jumbotron">
+        <div class="container">
+        <h1>Thank you for registering!</h1>
+        </div>
+    </div>
+        {% else %}
+     <div class="jumbotron">
+     <div class="container">
+        <h1>Register!</h1>
+        </div>
+    </div>
+    <div class="container">
+	<h2 class="form-signin-heading">Sign Up Here</h2>
 
-		<!-- Display each form -->
-		{{ user_form.as_p }}
-		{{ profile_form.as_p }}
-
-		<!-- Provide a button to click to submit the form. -->
-		<input type="submit" name="submit" value="Register" />
-	</form>
-	{% endif %}
+	<form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+    	{% csrf_token %}
+    <div class="form-group" >
+    <p class="required"><label class="required" for="id_username">Username:</label>
+        <input class="form-control" id="id_username" maxlength="30" name="username" type="text" />
+    </p>
+        <p class="required"><label class="required" for="id_email">E-mail:</label>
+            <input class="form-control" id="id_email" name="email" type="email" />
+        </p>
+    <p class="required"><label class="required" for="id_password1">Password:</label>
+        <input class="form-control" id="id_password1" name="password" type="password" />
+    </p>
+    <p> <label class="btn btn-primary" for="id_picture">
+    	<input id="id_picture" name="picture" type="file" style="display:none;">
+    	Picture
+		</label>
+		<span class="helptext">Pick your profile picture (Optional)</span>
+	</p>
+</div>
+    <button type="submit" class="btn btn-default" value="Register">Submit</button>
+</form>
+</div>
+{% endif %}
+</div>
+</div>
 {% endblock %}
