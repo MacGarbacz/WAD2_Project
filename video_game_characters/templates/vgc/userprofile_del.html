@@ -1,0 +1,12 @@
+<h2>Delete your account</h2>
+<hr>
+<form action="." method="POST" class="padding">
+	{% csrf_token %}
+    Are you sure you want to delete this account?
+    <button class="btn btn-primary" type="submit" name="delete"> Confirm </button>
+</form>
+<form action="." method="POST" class="padding">
+	{% csrf_token %}
+		If not press back
+    <button class="btn btn-primary" type="submit" name="back"> Back </button>
+</form>

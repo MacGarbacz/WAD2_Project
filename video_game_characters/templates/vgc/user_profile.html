@@ -7,14 +7,35 @@
 {% endblock %}
 
 {% block body_block %}
+
 	<h1/>Your Profile</h1>
-	<br/>Name =   {{user.username}}</br>
-	<br/>Email =   {{user.email}}</br>
-    {% for field in form %}
+	 {% for field in form %}
       {% if field.name == "picture" and field.value  %}
 		<br/><img src="{{ form.instance.picture.url }}" width="124"  height="120"></img></br>
 	  {% elif field.name == "picture" %}
 	    <br/><img src="{{MEDIA_URL}}NoProfilePicture.png" width="124"  height="120"></img></br>
-      {% endif %}
+    {% endif %}
 	{% endfor %}
+	<form id="choice1" method="post" action="/vgc/user_profile/" enctype="multipart/form-data">
+				{% csrf_token %}
+				{% for hidden in form1.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for field in form1.visible_fields %}
+					{% if field.name == "picture" %}
+						{{ field.errors }}
+						{{ field.help_text }}
+						{{ field }}
+						 <br>
+					 {% endif %}
+				{% endfor %}
+				<input type="submit" name="edit" value="Edit Picture" />
+		</form>
+	
+	
+	<br/>Name =   {{user.username}}</br>
+	<br/>Email =   {{user.email}}</br>
+	
+	<a href="/vgc/deleteaccount" >Delete your account </a>
+
 {% endblock %}

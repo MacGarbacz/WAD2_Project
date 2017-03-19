@@ -1,3 +1,7 @@
+Time : 19/03/2017 - 22:17
+ -Can edit profile picture 
+ -Can delete user account but it doesn't delete only deactivate
+
 Time : 18/03/2017 - 04:25
  -Top 10 Should be working good now
  -Nobody reads this Q.Q
