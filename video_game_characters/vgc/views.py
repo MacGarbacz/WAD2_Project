@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from vgc.forms import UserForm, UserProfileForm, VideoGameForm, CharacterForm, RatingForm , ListElementForm
-from django.core.urlresolvers import reverse
+from vgc.forms import UserForm, UserProfileForm, VideoGameForm, CharacterForm, RatingForm , ListElementForm ,DeactivateUserForm
+from django.core.urlresolvers import reverse , reverse_lazy
 from datetime import datetime
+from django.contrib.auth.models import User
 from vgc.models import UserProfile , Character, VideoGame , Rating, ListElement
+
 
 def index(request):
 
@@ -70,8 +72,46 @@ def register(request):
 
 
 def user_profile(request):
+    context_dict = {}
     form = UserProfileForm(instance = request.user.profile_user)
-    return render(request,'vgc/user_profile.html',{'form': form})
+    form1 = UserProfileForm()
+    context_dict['form'] = form
+    context_dict['form1'] = form1
+
+    if request.method =='POST':
+        if "edit" in request.POST:
+            if 'picture' in request.FILES:
+                currentprofile = UserProfile.objects.get(user=request.user)
+                currentprofile.picture = request.FILES['picture']
+                currentprofile.save()
+                form = UserProfileForm(instance=currentprofile)
+                context_dict['form'] = form
+                return render(request, 'vgc/user_profile.html', context_dict)
+
+
+    return render(request,'vgc/user_profile.html',context_dict)
+
+
+@login_required
+def deactivate_user_view(request):
+    pk = request.user.id
+    user = User.objects.get(pk=pk)
+    form1 = DeactivateUserForm(instance=user)
+    if request.user.is_authenticated() and request.user.id == user.id:
+        if request.method == "POST":
+            if "delete" in request.POST:
+                form1 = DeactivateUserForm(request.POST, instance=user)
+                if form1.is_valid():
+                    deactivate_user = form1.save(commit=False)
+                    user.is_active = False
+                    deactivate_user.save()
+                    return user_logout(request)
+            elif "back" in request.POST:
+                return user_profile(request)
+        return render(request, "vgc/userprofile_del.html", {"form1": form1,})
+    else:
+        raise PermissionDenied
+
 
 def user_login(request):
     # If the request is a HTTP POST, try to pull out the relevant information.
@@ -204,8 +244,8 @@ def your_top_10(request,user):
 
     userprofile = UserProfile.objects.get(user=request.user.id)
     if request.method == 'POST':
-        print(request.POST)
         post = request.POST
+        print(post)
         if post["character"] != "":
             character = Character.objects.get(id=post["character"])
 

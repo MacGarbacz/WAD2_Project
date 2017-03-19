@@ -18,5 +18,5 @@ urlpatterns = [
     url(r'^allcharacters/$', views.allcharacters, name='all_characters'),
     url(r'^toprated/$', views.toprated, name="top_rated"),
     url(r'^recommendations/$', views.recommendations, name="recommendations"),
-
+    url(r'^deleteaccount/$', views.deactivate_user_view, name="deactivate_user_view"),
 ]

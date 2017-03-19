@@ -111,7 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGOUT_REDIRECT_URL = "/vgc/"
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
