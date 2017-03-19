@@ -19,7 +19,7 @@ def get_character_list():
 
 @register.inclusion_tag('vgc/characters.html')
 def get_rating_list():
-    return{"characters": Character.objects.order_by("ratings")}
+    return{"characters": Character.objects.order_by("-ratings")}
 
 @register.inclusion_tag('vgc/characters.html', takes_context=True)
 def get_recommendation_list(context):
