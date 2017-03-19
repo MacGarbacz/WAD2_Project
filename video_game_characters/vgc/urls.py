@@ -17,5 +17,6 @@ urlpatterns = [
         views.add_character, name='add_character'),
     url(r'^allcharacters/$', views.allcharacters, name='all_characters'),
     url(r'^toprated/$', views.toprated, name="top_rated"),
+    url(r'^recommendations/$', views.recommendations, name="recommendations"),
 
 ]

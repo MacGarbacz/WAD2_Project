@@ -133,6 +133,8 @@ def allcharacters(request):
 def toprated(request):
     return render(request, 'vgc/toprated.html')
 
+def recommendations(request):
+    return render(request, 'vgc/recommendations.html', {})
 
 def show_videogame(request, videogame_name_slug):
     context_dict = {}

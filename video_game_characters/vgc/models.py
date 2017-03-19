@@ -49,7 +49,7 @@ class Character(models.Model):
                             help_text='Please enter the bio of the character.')
 
     picture = models.ImageField(upload_to='char_images', help_text='Add Character Picture', blank=True)
-    ratings = models.ManyToManyField(UserProfile, through='Rating', through_fields=('character', 'user'))
+    ratings = models.ManyToManyField(UserProfile, through='Rating', through_fields=('character', 'user'), default = 0)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -67,7 +67,7 @@ class Character(models.Model):
 class Rating(models.Model):
     user = models.ForeignKey(UserProfile)
     character = models.ForeignKey(Character)
-    rating = models.IntegerField()
+    rating = models.IntegerField(default = 0)
     class Meta:
         #user cannot rate a character twice
         unique_together = ('user', 'character')
@@ -77,6 +77,7 @@ class Rating(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class ListElement(models.Model):
     user = models.ForeignKey(UserProfile)
