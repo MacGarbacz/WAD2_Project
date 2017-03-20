@@ -24,6 +24,7 @@
 				{% if character.url %}
 				More Details : <a href="{{character.url}}" > {{character.url}}  </a>
 				{% endif%}
+				<input class="btn btn-primary" type="button" onclick="location.href='{% url 'rate' character.slug %}';" value="Rate" /></p>
 				</p>
 			</div>
 			<div class="col-md-5">
