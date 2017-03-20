@@ -4,28 +4,44 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	VGC
+VGC
 {% endblock %}
 {% block body_block %}
+<div class="jumbotron">
 	<h1>VGC HomePage</h1>
-	 What is VGC?
-	 It Stands for Video Game Characters
-	 VGC creates an environment for video game lovers to come together and rate
-	 videogame’s most popular and unpopular characters.
-	 
-	 <br>
-	 Here are some other user's top 10 list :
-	 <br>
-	 {% for key,value in l.items %}
-	 <li>
-	 	 {{ key }} 's top characters :
-		{% for c in  value %}
-			{% if c.character %}
-			{{c.position}}: <a class="btn btn-default" href="{% url 'show_character'  c.character.slug %}" role="button">{{ c.character.name }}</a>
-			{% endif %}
-		{% endfor %}
-	 <br>
-	 </li>
-	 {% endfor %}
-	 
+</div>
+<div class="row featurette">
+	<div class="col-md-7">
+		<h2 class="featurette-heading"> 
+			What is VGC?
+			<br></h2>
+			<p class="lead">
+				Video Game Characters!
+				<br>
+				VGC creates an environment for video game lovers to come together and rate
+				videogame’s most popular and unpopular characters.
+				<br>
+			</p>
+		</div>
+		<div class="col-md-5">
+		<div class="jumbotron">
+		<h4> Here are some other user's top 10 lists :</h4>
+		</div>
+		{% for key,value in l.items %}
+			<li>
+				<strong>{{ key }} 's</strong> top characters :
+				<br>
+				{% for c in  value %}
+				{% if c.character %}
+				{{c.position}}: <a class="btn btn-primary" href="{% url 'show_character'  c.character.slug %}" role="button">{{ c.character.name }}</a></p>
+				{% endif %}
+				{% endfor %}
+				<br>
+			</li>
+				{% endfor %}
+			<hr class="featurette-divider">
+		</div>
+	</div>
+</div><!-- /.col-lg-4 -->	
+
 {% endblock %}
