@@ -30,13 +30,10 @@
       <a class="navbar-brand" href="{% url 'index' %}">Dashboard</a>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'show_list_of_games' %}">Video Games</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'all_characters' %}">Browse all characters</a>
-          </li>
           {% if user.is_authenticated %}
+          <li class="nav-item">
+             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'user_profile' %}">User Profile</a>
           </li>
@@ -44,10 +41,10 @@
           	 <a class="nav-link" href="{% url 'your_top_10'  user %}">Your Top 10</a>
           </li>
           <li class="nav-item">
-          	 <a class="nav-link" href="{% url 'add_videogame' %}">Add a videogame</a>
+             <a class="nav-link" href="{% url 'recommendations'  %}">Recommendations</a>
           </li>
           <li class="nav-item">
-          	 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          	 <a class="nav-link" href="{% url 'add_videogame' %}">Add a videogame</a>
           </li>
           {% else %}
           <li class="nav-item">
@@ -57,6 +54,15 @@
           	 <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
           {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'show_list_of_games' %}">Video Games</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'all_characters' %}">Browse all characters</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="{% url 'top_rated' %}">Alltime Top 10</a>
+          </li>
         </ul>
       </div>
     </nav>			

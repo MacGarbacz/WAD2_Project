@@ -3,39 +3,47 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	User Profile
+User Profile
 {% endblock %}
 
 {% block body_block %}
-
-	<h1/>Your Profile</h1>
-	 {% for field in form %}
-      {% if field.name == "picture" and field.value  %}
-		<br/><img src="{{ form.instance.picture.url }}" width="124"  height="120"></img></br>
-	  {% elif field.name == "picture" %}
-	    <br/><img src="{{MEDIA_URL}}NoProfilePicture.png" width="124"  height="120"></img></br>
-    {% endif %}
-	{% endfor %}
-	<form id="choice1" method="post" action="/vgc/user_profile/" enctype="multipart/form-data">
-				{% csrf_token %}
-				{% for hidden in form1.hidden_fields %}
-					{{ hidden }}
+	<div class="jumbotron">
+		<h1/>Your Profile</h1>
+	</div>
+	<div class="row featurette">
+		<div class="col-md-7">
+			<h2 class="featurette-heading"> 
+				{{user.username}}
+				<br></h2>
+				<p class="lead">
+					{{user.email}}
+					<br>
+					<h4>Profile picture:</h4>
+					<form id="choice1" method="post" action="/vgc/user_profile/" enctype="multipart/form-data">
+						{% csrf_token %}
+						<label class="btn btn-primary" for="id_picture">
+							<input id="id_picture" name="picture" type="file" style="display:none;">
+							Browse
+						</label>
+						<label class="btn btn-primary">
+							<input type="submit" name="edit" value="Edit Picture" style="display:none;" />
+							Edit
+						</label>
+					</form>
+					  <input class="btn btn-primary" type="button" onclick="location.href='/vgc/deleteaccount';" value="Delete your account" /></p>
+				</p>
+			</div>
+			<div class="col-md-5">
+				{% for field in form %}
+				{% if field.name == "picture" and field.value  %}
+				<br/><img src="{{ form.instance.picture.url }}" width="200"  height="200"></img></br>
+				{% elif field.name == "picture" %}
+				<br/><img src="{{MEDIA_URL}}NoProfilePicture.png" width="200"  height="200"></img></br>
+				{% endif %}
 				{% endfor %}
-				{% for field in form1.visible_fields %}
-					{% if field.name == "picture" %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					 {% endif %}
-				{% endfor %}
-				<input type="submit" name="edit" value="Edit Picture" />
-		</form>
-	
-	
-	<br/>Name =   {{user.username}}</br>
-	<br/>Email =   {{user.email}}</br>
-	
-	<a href="/vgc/deleteaccount" >Delete your account </a>
+				<hr class="featurette-divider">
+			</div>
+		</div>
+	</div><!-- /.col-lg-4 -->	
 
 {% endblock %}

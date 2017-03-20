@@ -3,32 +3,37 @@
 
 
 {% block title_block %}
-	{{ character.name }}
+{{ character.name }}
 {% endblock %}
 
 {% block body_block %}
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3">
-	<br>
-		{% if character.picture %}
-			<br/><img src="{{ character.picture.url }}" width="124"  height="120"></img></br>
-		{% else %}
-			<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-		{% endif %}
-	<br>
-	</h1>{{ character.name }}</h1>
-	 <br>
-	 {% if character.bio %}
-		Bio :    {{character.bio}}
-	 {% endif%}
-	 
-	 <br>
-	 {% if rating %}
-		Rating :    {{rating}}
-	 {% endif%}
-	 
-	 <br>
-	 {% if character.url %}
-		More Details : <a href="{{character.url}}" > {{character.url}}  </a>
-	 {% endif%}
-</div><!-- /.col-lg-4 -->
-{% endblock %}
+<div class="jumbotron">
+	<h1>{{ character.name }}</h1>
+</div>
+<div class="row featurette">
+	<div class="col-md-7">
+		<h2 class="featurette-heading"> 
+			{% if rating %}
+			Rating : {{rating}}
+			{% endif%}
+			<br></h2>
+			<p class="lead">{% if character.bio %}
+				{{character.bio}}
+				{% endif%}
+				<br>
+				{% if character.url %}
+				More Details : <a href="{{character.url}}" > {{character.url}}  </a>
+				{% endif%}
+				</p>
+			</div>
+			<div class="col-md-5">
+				{% if character.picture %}
+				<br/><img src="{{ character.picture.url }}" width="200"  height="200"></img></br>
+				{% else %}
+				<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="200" height="200">
+				{% endif %}
+				<hr class="featurette-divider">
+			</div>
+		</div>
+	</div><!-- /.col-lg-4 -->
+	{% endblock %}
