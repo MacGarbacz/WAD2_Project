@@ -5,24 +5,40 @@
 	{{ videogame.name }}
 {% endblock %}
 
+
 {% block body_block %}
 	{%if videogame %} 
-		<h1>{{ videogame.name }}</h1>
-
-		{% if characters %}
-			All characters in {{ videogame.name }} :
-			<ul>
-			{% for character in characters %}	
+	<div class="jumbotron">
+		<h1/>{{ videogame.name }}</h1>
+</div>
+	</div>
+	{% if characters %}
+	<div class="container">
+	<div class="row featurette">
+		<div class="col-md-7">
+			<h2 class="featurette-heading"> 
+				All characters :
+				<br></h2>
+				<p class="lead">
+					{% for character in characters %}	
 				<li><a href="{% url 'show_character' character.slug %}" >{{character.name}} </a></li>
-			{% endfor %}
-			</ul>
-		{% else %}
-			<strong>No characters currently in videogame.</strong>
+				{% endfor %}
+				{% else %}
+					<br>
+					No characters currently in videogame.
+				</p>
+				{% endif %}
+				{% if user.is_authenticated %}
+				<br>
+		<input class="btn btn-primary" type="button" onclick="location.href='{% url 'add_character' videogame.slug %}';" value="Add a Character" /></p>
 		{% endif %}
-		{% if user.is_authenticated %}
-		<a href="{% url 'add_character' videogame.slug %}">Add a Character!</a> 
-		{% endif %}
+		</div>
+			</div>
+		</div>
+	</div><!-- /.col-lg-4 -->	
 	{% else %}
-		The specified videogame does not exist!
+	<div class="jumbotron">
+		<h1/>The specified videogame does not exist!</h1>
+	</div>
 	{% endif %}
 {% endblock %}

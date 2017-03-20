@@ -24,6 +24,10 @@
           </p>
         </div><!-- /.col-lg-4 -->
        {% endfor %}
+       {% if user.is_authenticated %}
+       <br>
+       <input class="btn btn-primary" type="button" onclick="location.href='{% url 'add_videogame' %}';" value="Add a Video Game" /></p>
+       {% endif %}
        </div>
        {% else %}
 		<li> <strong>There are no games present.</strong></li>
