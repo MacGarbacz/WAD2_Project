@@ -17,11 +17,11 @@ def get_user_character_list():
 def get_character_list():
     return{"characters": Character.objects.order_by("name")}
 
-@register.inclusion_tag('vgc/characters.html')
+@register.inclusion_tag('vgc/top10alltime.html')
 def get_rating_list():
     return{"characters": Character.objects.order_by("-ratings")}
 
-@register.inclusion_tag('vgc/characters.html', takes_context=True)
+@register.inclusion_tag('vgc/recommendations2.html', takes_context=True)
 def get_recommendation_list(context):
     request = context['request']
     current_user = request.user.profile_user.id
