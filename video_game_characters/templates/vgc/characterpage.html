@@ -24,6 +24,7 @@
 				{% if character.url %}
 				More Details : <a href="{{character.url}}" > {{character.url}}  </a>
 				{% endif%}
+				{% if user.is_authenticated %}
 				<form id="rating_form" method="post" action="/vgc/rate/{{ character.slug }}/">
 				{% csrf_token %}
 	                <input id="id_rating" max="100" min="0" name="rating" type="number" />
@@ -31,6 +32,7 @@
 	            <input type="submit" name="submit" value="Rate"  style="display:none;"/>
 	            Rate
 	            </label>
+	            {% endif%}
 	        </form>
 			</div>
 			<div class="col-md-5">
