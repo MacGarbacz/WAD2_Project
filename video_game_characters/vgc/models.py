@@ -87,7 +87,7 @@ class ListElement(models.Model):
         #same list position cannot appear twice in a list, same character cannot appear twice in a list
         unique_together = (('user', 'position'), ('user', 'character'))
     def __str__(self):
-        return self.name
+        return self.user.user.username + " " + self.character.name + " " + str(self.position)
 
     def __unicode__(self):
-        return self.name
+        return self.user.user.username + " " + self.character.name + " " + str(self.position)

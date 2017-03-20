@@ -1,3 +1,6 @@
+Time : 20/03/2017 - 17:14
+ -Homepage - Can see other user's top 10
+
 Time : 19/03/2017 - 22:17
  -Can edit profile picture 
  -Can delete user account but it doesn't delete only deactivate

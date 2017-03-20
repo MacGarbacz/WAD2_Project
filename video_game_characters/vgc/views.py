@@ -10,8 +10,26 @@ from vgc.models import UserProfile , Character, VideoGame , Rating, ListElement
 
 
 def index(request):
+    context_dict = {}
+    l = {}
 
-    return render(request, 'vgc/index.html')
+    if request.user.is_authenticated:
+        all_users = User.objects.exclude(pk=request.user.id)
+    else:
+        all_users = User.objects.all()
+
+
+    for u in all_users :
+        if u.is_active == True and not u.is_staff :
+            userprofile = UserProfile.objects.get(user = u)
+            u_in_str_form =  u.username
+            if ListElement.objects.all().filter(user_id=userprofile).order_by("position").exists() :
+                l[u_in_str_form] = ListElement.objects.all().filter(user_id=userprofile).order_by("position")
+
+        else:
+            all_users.filter(pk=u.id).delete()
+    context_dict["l"] = l
+    return render(request, 'vgc/index.html' , context_dict)
 
 def register(request):
     # A boolean value for telling the template
