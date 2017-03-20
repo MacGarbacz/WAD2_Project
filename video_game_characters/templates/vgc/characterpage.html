@@ -24,8 +24,14 @@
 				{% if character.url %}
 				More Details : <a href="{{character.url}}" > {{character.url}}  </a>
 				{% endif%}
-				<input class="btn btn-primary" type="button" onclick="location.href='{% url 'rate' character.slug %}';" value="Rate" /></p>
-				</p>
+				<form id="rating_form" method="post" action="/vgc/rate/{{ character.slug }}/">
+				{% csrf_token %}
+	                <input id="id_rating" max="100" min="0" name="rating" type="number" />
+	 			<label class="btn btn-primary">
+	            <input type="submit" name="submit" value="Rate"  style="display:none;"/>
+	            Rate
+	            </label>
+	        </form>
 			</div>
 			<div class="col-md-5">
 				{% if character.picture %}
