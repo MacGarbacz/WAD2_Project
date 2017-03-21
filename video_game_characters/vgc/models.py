@@ -67,16 +67,16 @@ class Character(models.Model):
 class Rating(models.Model):
     user = models.ForeignKey(UserProfile)
     character = models.ForeignKey(Character)
-    rating = models.IntegerField(default = 0)
+    rating = models.IntegerField(default = 0,choices=[(i,i) for i in range(101)])
     class Meta:
         #user cannot rate a character twice
         unique_together = ('user', 'character')
 
     def __str__(self):
-        return self.name
+        return str(self.rating)
 
     def __unicode__(self):
-        return self.name
+        return str(self.rating)
 
 
 class ListElement(models.Model):

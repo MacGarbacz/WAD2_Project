@@ -13,7 +13,7 @@
 			{% if c.picture %}
 			<img src="{{ c.picture.url }}" width="140"  height="140"></img>
 			{% else %}
-			<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+			<img class="img-circle" src="{{MEDIA_URL}}NoCharPicture.png" alt="Generic placeholder image" width="140" height="140">
 			{% endif %}
           <h2>{{ c.name }}</h2>
           <p>

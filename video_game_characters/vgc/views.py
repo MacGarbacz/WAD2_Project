@@ -18,15 +18,16 @@ def index(request):
     else:
         all_users = User.objects.all()
 
-
+    upto5counter = 0
     for u in all_users :
-        if u.is_active == True and not u.is_staff :
+        if u.is_active == True and not u.is_staff and upto5counter <6 :
             userprofile = UserProfile.objects.get(user = u)
             u_in_str_form =  u.username
             if ListElement.objects.all().filter(user_id=userprofile).order_by("position").exists() :
                 l[u_in_str_form] = ListElement.objects.all().filter(user_id=userprofile).order_by("position")
+                upto5counter += 1
 
-        else:
+        elif upto5counter <6 :
             all_users.filter(pk=u.id).delete()
     context_dict["l"] = l
     return render(request, 'vgc/index.html' , context_dict)

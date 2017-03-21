@@ -1,3 +1,6 @@
+Time : 21/03/2017 - 02:27
+ -Wrote population script
+
 Time : 20/03/2017 - 17:14
  -Homepage - Can see other user's top 10
 
