@@ -34,7 +34,7 @@ VGC
 		{% for key,value in l.items %}
 		<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3">
 				<strong>{{ key }}'s</strong> top characters :
-				<li>
+				<br>
 				{% for c in  value %}
 				{% if c.character %}
 				{{c.position}}: <a class="btn btn-primary" href="{% url 'show_character'  c.character.slug %}" role="button">{{ c.character.name }}</a></p>
