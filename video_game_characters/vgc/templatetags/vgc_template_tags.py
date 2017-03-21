@@ -15,7 +15,21 @@ def get_character_list():
 
 @register.inclusion_tag('vgc/top10alltime.html')
 def get_rating_list():
-    return{"characters": Character.objects.order_by("ratings")}
+    rating_list = []
+    character_list = Character.objects.all()
+    for c in character_list:
+        rate = 0
+        ratings = Rating.objects.filter(character=c.pk)
+        for r in ratings:
+            rate = rate + r.rating / len(ratings)
+        rating_list.append((c, rate))
+    rating_list = sorted(rating_list, key=lambda rating: rating[1], reverse=True)
+    toprated = []
+    print rating_list
+    for i in rating_list:
+        toprated.append(i[0])
+    print toprated
+    return{"characters": toprated[:10]}
 
 @register.inclusion_tag('vgc/recommendations2.html', takes_context=True)
 def get_recommendation_list(context):
