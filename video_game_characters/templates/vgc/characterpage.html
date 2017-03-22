@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block body_block %}
-<div class="jumbotron">
+
+{%if character %} 
+<div character="jumbotron">
 	<h1>{{ character.name }}</h1>
 </div>
 <div class="row featurette">
@@ -45,4 +47,10 @@
 			</div>
 		</div>
 	</div><!-- /.col-lg-4 -->
-	{% endblock %}
+	
+	{% else %}
+	<div class="jumbotron">
+		<h1/>The specified characeter does not exist!</h1>
+	</div>
+	{% endif %}
+{% endblock %}
