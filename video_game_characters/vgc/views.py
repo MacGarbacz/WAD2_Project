@@ -158,7 +158,7 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homecharacter.
                 login(request, user)
-                return HttpResponseRedirect(reverse('index'))
+                return index(request)
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your VGC account is disabled.")
@@ -178,9 +178,10 @@ def user_login(request):
 @login_required
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
+
     logout(request)
     # Take the user back to the homecharacter.
-    return HttpResponseRedirect(reverse('index'))
+    return index(request)
 
 
 def show_listofvideogame(request):
@@ -194,6 +195,7 @@ def toprated(request):
     print characters
     return render(request, 'vgc/toprated.html')
 
+@login_required
 def recommendations(request):
     return render(request, 'vgc/recommendations.html', {})
 
