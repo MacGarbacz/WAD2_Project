@@ -5,8 +5,11 @@ from math import *
 register = template.Library()
 
 @register.inclusion_tag('vgc/games.html')
-def get_videogame_list():
-    return{'games': VideoGame.objects.order_by("name")}
+def get_videogame_list(user):
+    context_dict={}
+    context_dict['games'] = VideoGame.objects.order_by("name")
+    context_dict['user'] = user
+    return context_dict
 
 
 @register.inclusion_tag('vgc/characters.html')

@@ -9,27 +9,27 @@
 <div class="row">
 {% if games %}
 		{% for c in games %}
-
-        <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3">
-		{% if c.picture %}
-		  <img class="img-circle" img src="{{ c.picture.url }}" alt="image" width="140" height="140">
-		{% else %}
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-        {% endif %}  
-		  <h2>{{ c.name }}</h2>
-          </br>
-          <p>
-          <input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_videogame' c.slug %}';" value="View details" /></p>
-          </br>
-          </p>
-        </div><!-- /.col-lg-4 -->
-       {% endfor %}
-       {% if user.is_authenticated %}
-       <br>
-       <input class="btn btn-primary" type="button" onclick="location.href='{% url 'add_videogame' %}';" value="Add a Video Game" /></p>
-       {% endif %}
+			<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3">
+			{% if c.picture %}
+			  <img class="img-circle" img src="{{ c.picture.url }}" alt="image" width="140" height="140">
+			{% else %}
+			  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+			{% endif %}  
+			  <h2>{{ c.name }}</h2>
+			</br>
+			<p>
+			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_videogame' c.slug %}';" value="View details" /></p>
+			</br>
+			</p>
+			</div><!-- /.col-lg-4 -->
+		{% endfor %}
        </div>
        {% else %}
 		<li> <strong>There are no games present.</strong></li>
-		{% endif %}
+{% endif %}
+
+{% if user.is_authenticated %}
+   <br>
+	<input class="btn btn-primary" type="button" onclick="location.href='{% url 'add_videogame' %}';" value="Add a Video Game" /></p>
+{% endif %}
 </div>
