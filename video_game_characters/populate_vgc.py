@@ -93,9 +93,9 @@ def populate():
              "picture": "char_images/Desmond.png"}]
 
 
-    games = {"Mass Effect": {"characters": [Dr_Suvi ,Shepard,JamesVega,KaidanAlenko,Jack_Subject_Zero] , "picture": "game_images/ac.jpg"},
+    games = {"Mass Effect": {"characters": [Dr_Suvi ,Shepard,JamesVega,KaidanAlenko,Jack_Subject_Zero] , "picture": "game_images/masseffect.jpg" },
             "Halo": {"characters": [John_117, Cortana, Jacob_Keyes, Avery_Johnson, John_Forge], "picture":"game_images/halo.jpg"},
-            "Assassin's Creed": {"characters": [Desmond_Miles, Altair, Ezio_Auditore, Edward_Kenway, Lucy_Stillman] , "picture":"game_images/masseffect.jpg"}
+            "Assassin's Creed": {"characters": [Desmond_Miles, Altair, Ezio_Auditore, Edward_Kenway, Lucy_Stillman] , "picture": "game_images/ac.jpg" }
             }
 
     userlist={"Jude": {"username": "Jude", "email": "jude@gmail.com", "password": "password","picture": "profile_images/JudeProf.png"},
