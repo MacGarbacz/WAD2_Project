@@ -265,8 +265,9 @@ def your_top_10(request,user):
     form9 = ListElementForm()
     form10 = ListElementForm()
 
-    userprofile = UserProfile.objects.get(user=request.user.id)
-    if request.method == 'POST':
+    userprofile = UserProfile.objects.get(user= User.objects.get(username=user))
+    context_dict['user1'] = user
+    if request.method == 'POST' and userprofile == request.user.profile_user:
         post = request.POST
         print(post)
         if post["character"] != "":
