@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse , reverse_lazy
 from datetime import datetime
 from django.contrib.auth.models import User
 from vgc.models import UserProfile , Character, VideoGame, Rating, ListElement
-from utils import *
+from .utils import *
 
 def index(request):
     context_dict = {}
@@ -192,7 +192,7 @@ def allcharacters(request):
 
 def toprated(request):
     characters = searchCharacters("assassin")
-    print characters
+    print (characters)
     return render(request, 'vgc/toprated.html')
 
 @login_required

@@ -6,7 +6,25 @@
 {% endblock %}
 
 {% block body_block %}
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('a#logout').click(function(){
+						});
+						
+					for (i = 1; i < 11; i++) {
+					var l = "#" + i
+						$(l).hide();
+						$(l).removeClass( "invisible" );
+					}
+					
+					for (i = 0; i < 10; i++) {
+					var l = "#" + i
+						$(l).fadeIn(5000);
+					}
+			
 
+				});
+			</script> 
 			
 			
 <div class="jumbotron">
@@ -19,7 +37,7 @@
 <div class="container">
 <div class="row">
 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="1" >
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="1" >
 </br>
 {% for l in list %}
       {% if l.position == 1 %}
@@ -54,7 +72,7 @@
 		
 		
 		
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="2">
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="2">
 </br>
 {% for l in list %}	
 		{% if l.position == 2 %}
@@ -89,7 +107,7 @@
 		 
 		
 		
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="3" >	
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="3" >	
 </br>	 
 {% for l in list %}
 		 {% if l.position == 3 %}
@@ -124,7 +142,7 @@
 		 
 		 
 		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="4">		 
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="4">		 
 </br>
 {% for l in list %}
 		{% if l.position == 4 %}
@@ -159,7 +177,7 @@
 	
 	
 		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="5">			 
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="5">			 
 {% for l in list %}
 		 {% if l.position == 5 %}
 			{% if l.character.picture  %}
@@ -193,7 +211,7 @@
 		 
 		 
 		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="6">			 
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="6">			 
 {% for l in list %}
 		 {% if l.position == 6 %}
 			{% if l.character.picture  %}
@@ -226,7 +244,7 @@
 		 
 		
 		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="7">			 
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="7">			 
 {% for l in list %}
 		{% if l.position == 7 %}
 			{% if l.character.picture  %}
@@ -260,7 +278,7 @@
 		
 		
 		
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="8">		
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="8">		
 {% for l in list %}
 		 {% if l.position == 8 %}
 			{% if l.character.picture  %}
@@ -294,7 +312,7 @@
 		 
 		 
 		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="9">		 
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="9">		 
 {% for l in list %}
 		 {% if l.position == 9 %}
 			{% if l.character.picture  %}
@@ -327,7 +345,7 @@
 	
 	
 		
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3" id="10">	
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="10">	
 {% for l in list %}
 		  {% if l.position == 10 %}
 			{% if l.character.picture  %}
