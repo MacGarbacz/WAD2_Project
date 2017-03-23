@@ -49,6 +49,7 @@ def sortCharacters(characterCoeffs, User):
 #this list needs culling to x results, but is already sorted. It's also completely redundant.
 def searchCharacters(str):
     baseTerms = cleanUp(str).split()
+    baseTerms = filter(lambda name: name.strip(), baseTerms) #remove possible whitespace strings (they should be gone already)
     if(len(baseTerms)>8):
         baseTerms = baseTerms[:8]
     searchTerms = []
@@ -62,7 +63,7 @@ def searchCharacters(str):
                 searchTerms = searchTerms + [rear]
     #generate a set of alternate half-words; ideally this catches most root words
     #purposefully ignores halfwords shorter than 4 characters
-    #this is a shortcut to replace proper fuzzy patternmatching
+	#this is a shortcut to replace proper fuzzy patternmatching
                 
     characters = Character.objects.all()
     coeffs = {}
@@ -70,17 +71,21 @@ def searchCharacters(str):
         name = cleanUp(c.name)
         desc = cleanUp(c.bio)
         game = cleanUp(c.videogame.name)
+        link = cleanUp(c.url)
         v = 0.0
         for t in searchTerms:
-            v = v+measureSimilarty(t, desc)+8*measureSimilarty(t, name)+4*measureSimilarty(t, name)
+            v = v+measureSimilarty(t, desc)+8*measureSimilarty(t, name)+4*measureSimilarty(t, name)+2*measureSimilarty(t, link)
             #these are arbitrary weightings
         coeffs[c] = v;
-    return sorted(coeffs.items(), key=operator.itemgetter(1), reverse = True)
-
+    sorts = sorted(coeffs.items(), key=operator.itemgetter(1), reverse = True)
+    CharacterList = []
+    for i in sorts:
+        CharacterList = CharacterList + [i[0]]
+    return CharacterList
     
 def measureSimilarty(key, passage):
     return passage.count(key)*len(key)/sqrt(1.0*len(passage))
     #to improve
     
 def cleanUp(str):
-    return re.sub(r'[^\w\s]','',str).lower()
+    return re.sub(r'[^\w\s]',' ',str).lower()

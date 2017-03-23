@@ -187,10 +187,10 @@ def show_listofvideogame(request):
     return render(request, 'vgc/gameslist.html')
 
 def allcharacters(request):
-    return render(request, 'vgc/allcharacters.html')
+    context_dict = {"search": request.GET.get("search")}
+    return render(request, 'vgc/allcharacters.html', context_dict)
 
 def toprated(request):
-    characters = searchCharacters("assassin")
     return render(request, 'vgc/toprated.html')
 
 @login_required

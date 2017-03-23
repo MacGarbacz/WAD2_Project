@@ -2,6 +2,7 @@ from django import template
 from vgc.models import VideoGame, Character, UserProfile, Rating , ListElement
 from math import *
 from django.contrib.auth.models import User
+from vgc.utils import *
 
 register = template.Library()
 
@@ -23,8 +24,10 @@ def update_pos(user,r):
 
 
 @register.inclusion_tag('vgc/characters.html')
-def get_character_list():
-    return{"characters": Character.objects.order_by("name")}
+def get_character_list(search):
+    if(search == None):
+        search = ""
+    return{"characters": searchCharacters(search)}#Character.objects.order_by("name")}
 
 @register.inclusion_tag('vgc/top10alltime.html')
 def get_rating_list():
