@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -89,7 +89,7 @@ def register(request):
     return render(request,'vgc/register.html',{'user_form': user_form,
                     'profile_form': profile_form,'registered': registered})
 
-
+@login_required
 def user_profile(request):
     context_dict = {}
     form = UserProfileForm(instance = request.user.profile_user)
@@ -158,7 +158,7 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homecharacter.
                 login(request, user)
-                return index(request)
+                return redirect(index)
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your VGC account is disabled.")
@@ -180,7 +180,7 @@ def user_logout(request):
 
     logout(request)
     # Take the user back to the homecharacter.
-    return index(request)
+    return redirect(index)
 
 
 def show_listofvideogame(request):
@@ -295,7 +295,7 @@ def add_videogame(request):
                 game.picture = request.FILES['picture']
             game.save()
 
-            return index(request)
+            return redirect(index)
         else:
             print(form.errors)
     return render(request, 'vgc/add_videogame.html', {'form': form})

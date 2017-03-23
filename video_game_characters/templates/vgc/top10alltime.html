@@ -7,6 +7,7 @@
 <!-- Three columns of text below the carousel -->
 <div class="container">
 <div class="row">
+    {% if characters %}
 		{% for c in characters %}
 
         <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3">
@@ -22,4 +23,7 @@
         </div><!-- /.col-lg-4 -->
        {% endfor %}
        </div>
+       {% else %}
+		<li> <strong>There are no characters present.</strong></li>
+		{% endif %}
 </div>

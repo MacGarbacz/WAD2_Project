@@ -1,7 +1,7 @@
 from django import template
 from vgc.models import VideoGame, Character, UserProfile, Rating , ListElement
-from django.contrib.auth.models import User
 from math import *
+from django.contrib.auth.models import User
 
 register = template.Library()
 
@@ -18,6 +18,7 @@ def update_pos(user,r):
     user1 =  User.objects.get(username=user)
     up = UserProfile.objects.get(user=user1)
     return ListElement.objects.filter(user=up,position =r).exists()
+
 
 
 
