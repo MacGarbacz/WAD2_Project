@@ -1,5 +1,6 @@
 {% extends 'vgc/base.html' %}
 {% load staticfiles %}
+{% load vgc_template_tags %}
 
 {% block title_block %}
 	{{ user1 }} 's Top 10
@@ -21,11 +22,9 @@
 					var l = "#" + i
 						$(l).fadeIn(5000);
 					}
-			
-
 				});
 			</script> 
-			
+
 			
 <div class="jumbotron">
       <div class="container">
@@ -37,375 +36,45 @@
 <div class="container">
 <div class="row">
 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="1" >
-</br>
-{% for l in list %}
-      {% if l.position == 1 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
+
+
+{% for r in range %}
+<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="{{r}}" >
+	{% with name=r %} 
+		{% for l in list %}
+			{% if l.position == r %}
+				{% if l.character.picture  %}
+						<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
+				{% else%}
+						<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
+				{% endif %}
+				<br>
+				<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{l.position}} :{{ l.character.name }}" />
 			{% endif %}
-			<br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{l.position}} :{{ l.character.name }}" />
+		{% endfor %}
+		{% update_pos user1 r as pos1 %}
+		{% if pos1 == False %}
+			<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">	
 		{% endif %}
-{% endfor %}
-{% if pos1 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">	
-{% endif %}
-{% if user1 == user.username %}
-	   	<form id="choice1" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
+		{% if user1 == user.username %}
+			<form id="choice1" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
 				{% csrf_token %}
-				{% for hidden in form1.hidden_fields %}
+				{% for hidden in form.hidden_fields %}
 					{{ hidden }}
 				{% endfor %}
-				{% for field in form1.visible_fields %}
+				{% for field in form.visible_fields %}
 					{{ field.errors }}
 					{{ field.help_text }}
 					{{ field }}
-					 <br>
+					<br>
 				{% endfor %}
-				<label class="btn btn-primary">
-				<input  type="submit" name="submit_1" value="Choose First" style="display:none;" />Choose First
-				</label>
-		</form>
-{% endif %}
-</div><!-- /.col-lg-4 -->
-		
-		
-		
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="2">
-</br>
-{% for l in list %}	
-		{% if l.position == 2 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
-			{% endif %}
-			</br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{l.position}} :{{ l.character.name }}" />
-			
-	   {% endif %}
-{% endfor %}	
-{% if pos2 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">
-{% endif %}
-{% if user1 == user.username %}
-	   <form id="choice2" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
-		 {% csrf_token %}
-		 {% for hidden in form2.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for field in form2.visible_fields %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					{% endfor %}
-					<label class="btn btn-primary">
-				<input  type="submit" name="submit_2" value="Choose Second" style="display:none;" />Choose Second
-				</label>
-		 </form>
-{% endif %}
-	</div><!-- /.col-lg-4 -->		
-		 
-		
-		
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="3" >	
-</br>	 
-{% for l in list %}
-		 {% if l.position == 3 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
-			{% endif %}
-			</br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{l.position}} :{{ l.character.name }}" />
-			
-	     {% endif %}
-{% endfor %}
-{% if pos3 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">	
-{% endif %}
-{% if user1 == user.username %}
-		<form id="choice3" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
-		 {% csrf_token %}
-		 {% for hidden in form3.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for field in form3.visible_fields %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					{% endfor %}
-					<label class="btn btn-primary">
-				<input  type="submit" name="submit_3" value="Choose Third" style="display:none;" />Choose Third
-				</label>
-		 </form>
-{% endif %}	
-	</div><!-- /.col-lg-4 -->	
-		 
-		 
-		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="4">		 
-</br>
-{% for l in list %}
-		{% if l.position == 4 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
-			{% endif %}
-			</br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{l.position}} :{{ l.character.name }}" />
-			
-	   {% endif %}
-{% endfor %}
-{% if pos4 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">	
-{% endif %}
-{% if user1 == user.username %}
-		<form id="choice4" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
-		 {% csrf_token %}
-		 {% for hidden in form4.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for field in form4.visible_fields %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					{% endfor %}
-					<label class="btn btn-primary">
-				<input  type="submit" name="submit_4" value="Choose Fourth" style="display:none;" />Choose Fourth
-				</label>
-		 </form>
-{% endif %}	
-	</div><!-- /.col-lg-4 -->	
-	
-	
-		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="5">			 
-{% for l in list %}
-		 {% if l.position == 5 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
-			{% endif %}
-			</br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{ l.character.name }}" />
-			
+			<label class="btn btn-primary"><input  type="submit" name= "{{name}}" value="Choose First" style="display:none;" />Choose Ranked {{r}}</label>
+			</form>
 		{% endif %}
+	{% endwith %}
+</div>
 {% endfor %}
-{% if pos5 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">	
-{% endif %}
-{% if user1 == user.username %}
-		 <form id="choice5" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
-		 {% csrf_token %}
-		 {% for hidden in form5.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for field in form5.visible_fields %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					{% endfor %}
-					<label class="btn btn-primary">
-				<input  type="submit" name="submit_5" value="Choose Fifth" style="display:none;" />Choose Fifth
-				</label>
-		 </form>
-{% endif %}
-	</div><!-- /.col-lg-4 -->		
-		 
-		 
-		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="6">			 
-{% for l in list %}
-		 {% if l.position == 6 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
-			{% endif %}
-			</br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{ l.character.name }}" />
-		{% endif %}
-{% endfor %}	
-{% if pos6 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">
-{% endif %}
-{% if user1 == user.username %}
-		<form id="choice6" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
-		 {% csrf_token %}
-		 {% for hidden in form6.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for field in form6.visible_fields %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					{% endfor %}
-					<label class="btn btn-primary">
-				<input  type="submit" name="submit_6" value="Choose Sixth" style="display:none;" />Choose Sixth
-				</label>
-		 </form>
-{% endif %}
-	</div><!-- /.col-lg-4 -->	 
-		 
-		
-		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="7">			 
-{% for l in list %}
-		{% if l.position == 7 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
-			{% endif %}
-			</br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{ l.character.name }}" />
 
-		{% endif %}
-{% endfor %}	
-{% if pos7 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">
-{% endif %}
-{% if user1 == user.username %}
-		<form id="choice7" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
-		 {% csrf_token %}
-		 {% for hidden in form7.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for field in form7.visible_fields %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					{% endfor %}
-					<label class="btn btn-primary">
-				<input  type="submit" name="submit_7" value="Choose Seventh" style="display:none;" />Choose Seventh
-				</label>
-		 </form>
-{% endif %}
-	</div><!-- /.col-lg-4 -->		
-		
-		
-		
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="8">		
-{% for l in list %}
-		 {% if l.position == 8 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
-			{% endif %}
-			</br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{ l.character.name }}" />
-			
-		{% endif %}
-{% endfor %}
-{% if pos8 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">	
-{% endif %}
-{% if user1 == user.username %}
-		<form id="choice8" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
-		 {% csrf_token %}
-		 {% for hidden in form8.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for field in form8.visible_fields %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					{% endfor %}
-					<label class="btn btn-primary">
-				<input  type="submit" name="submit_8" value="Choose Eight" style="display:none;" />Choose Eight
-				</label>
-		 </form>
-{% endif %}
-	</div><!-- /.col-lg-4 -->		
-		 
-		 
-		 
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="9">		 
-{% for l in list %}
-		 {% if l.position == 9 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
-			{% endif %}
-			</br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{ l.character.name }}" />
-			{% endif %}
-{% endfor %}	
-{% if pos9 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">
-{% endif %}
-{% if user1 == user.username %}
-		<form id="choice9" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
-		 {% csrf_token %}
-		 {% for hidden in form9.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for field in form9.visible_fields %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					{% endfor %}
-					<label class="btn btn-primary">
-				<input  type="submit" name="submit_9" value="Choose Ninth" style="display:none;" />Choose Ninth
-				</label>
-		 </form>
-{% endif %}
-	</div><!-- /.col-lg-4 -->		
-	
-	
-		
-<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-lg-3 invisible" id="10">	
-{% for l in list %}
-		  {% if l.position == 10 %}
-			{% if l.character.picture  %}
-			<img class="img-circle" img src="{{ l.character.picture.url }}" alt="image" width="140" height="140">
-			{% else%}
-			<img class="img-circle" img src="{{MEDIA_URL}}NoCharPicture.png"alt="image" width="140" height="140">
-			{% endif %}
-			</br>
-			<input class="btn btn-primary" type="button" onclick="location.href='{% url 'show_character' l.character.slug %}';" value="{{ l.character.name }}" />
-
-		 {% endif %}
-{% endfor %}	
-{% if pos10 == False %}
-<img class="img-circle" img src="{{MEDIA_URL}}Empty.png"alt="image" width="140" height="140">
-{% endif %}
-{% if user1 == user.username %}
-		<form id="choice10" method="post" action="/vgc/{{ user.username }}/yourtop10/" enctype="multipart/form-data">
-		 {% csrf_token %}
-		 {% for hidden in form10.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for field in form10.visible_fields %}
-						{{ field.errors }}
-						{{ field.help_text }}
-						{{ field }}
-						 <br>
-					{% endfor %}
-					<label class="btn btn-primary">
-				<input  type="submit" name="submit_10" value="Choose Tenth" style="display:none;" />Choose Tenth
-				</label>
-		 </form>
-{% endif %}
-		 </div><!-- /.col-lg-4 -->		
-	
 </div>	 
-	 
+	
 {% endblock %}

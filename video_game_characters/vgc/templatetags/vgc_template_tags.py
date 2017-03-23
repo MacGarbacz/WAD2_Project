@@ -1,5 +1,6 @@
 from django import template
-from vgc.models import VideoGame, Character, UserProfile, Rating
+from vgc.models import VideoGame, Character, UserProfile, Rating , ListElement
+from django.contrib.auth.models import User
 from math import *
 
 register = template.Library()
@@ -10,6 +11,14 @@ def get_videogame_list(user):
     context_dict['games'] = VideoGame.objects.order_by("name")
     context_dict['user'] = user
     return context_dict
+
+
+@register.simple_tag
+def update_pos(user,r):
+    user1 =  User.objects.get(username=user)
+    up = UserProfile.objects.get(user=user1)
+    return ListElement.objects.filter(user=up,position =r).exists()
+
 
 
 @register.inclusion_tag('vgc/characters.html')
@@ -28,10 +37,8 @@ def get_rating_list():
         rating_list.append((c, rate))
     rating_list = sorted(rating_list, key=lambda rating: rating[1], reverse=True)
     toprated = []
-    print (rating_list)
     for i in rating_list:
         toprated.append(i[0])
-    print (toprated)
     return{"characters": toprated[:10]}
 
 @register.inclusion_tag('vgc/recommendations2.html', takes_context=True)
@@ -41,8 +48,6 @@ def get_recommendation_list(context):
     current_user = UserProfile.objects.get(pk=current_user)
     current_user_ratings = list(Rating.objects.filter(user = current_user).values_list())
     all_user_ratings = list(Rating.objects.exclude(user = current_user).values_list())
-    #print (current_user_ratings)
-    #print (all_user_ratings)
     user_i = all_user_ratings[0][1]
     rating_list = []
     user_rating_list = []
@@ -71,5 +76,4 @@ def get_recommendation_list(context):
         if rated == False and k[3] > 70:
             recommendation_list.append(k[2])
 
-    #print (recommendation_list)
     return{"characters": Character.objects.filter(pk__in=recommendation_list)}
