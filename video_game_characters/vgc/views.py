@@ -12,12 +12,13 @@ from .utils import *
 def index(request):
     context_dict = {}
     l = {}
-
+    #gets all users apart from the current one if current one is logged in
     if request.user.is_authenticated:
         all_users = User.objects.exclude(pk=request.user.id)
     else:
         all_users = User.objects.all()
 
+    #This adds up to 5 users top ten to the context dict to be displayed in the homepage
     upto5counter = 0
     for u in all_users :
         if u.is_active == True and not u.is_staff and upto5counter <6 :
@@ -97,6 +98,7 @@ def user_profile(request):
     context_dict['form'] = form
     context_dict['form1'] = form1
 
+    #Allows user to edit picture
     if request.method =='POST':
         if "edit" in request.POST:
             if 'picture' in request.FILES:
@@ -116,6 +118,7 @@ def deactivate_user_view(request):
     pk = request.user.id
     user = User.objects.get(pk=pk)
     form1 = DeactivateUserForm(instance=user)
+    #Allows user to delete their account
     if request.user.is_authenticated() and request.user.id == user.id:
         if request.method == "POST":
             if "delete" in request.POST:
@@ -242,6 +245,7 @@ def google_search_verification(request):
 
 @login_required
 def your_top_10(request,user):
+    #Updates user's ranking of the position given to the character given
     def updatelist(userprofile,position,character):
         ListElement.objects.filter(user=userprofile, character=character).delete()
         ListElement.objects.filter(user=userprofile, position=position).delete()
@@ -254,6 +258,7 @@ def your_top_10(request,user):
 
     userprofile = UserProfile.objects.get(user= User.objects.get(username=user))
     context_dict['user1'] = user
+    #Gets the character and position from the post by determining name of submit which goes from "1" to "10" for each position
     if request.method == 'POST' and userprofile == request.user.profile_user:
         post = request.POST
         if post["character"] != "":
